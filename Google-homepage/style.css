@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center ;
+    margin-top: 0;
+}
+
+.header-item{
+    padding: 10px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+}
+
+.img-container img {
+    width: 20%;
+}
+
+.search-form {
+    margin: 20px;
+    margin-top: 30px;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.search-bar {
+    display: flex;
+    border: 1px solid #dfe1e5;
+    width: 100%;
+    border-radius: 25px ;
+    justify-content: space-evenly;
+}
+
+.search-bar img{
+    padding: 10px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-grow: .9;
+    justify-self: center;
+}
+
+.search-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.search-buttons button{
+    padding: 10px 20px 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    background-color: #f8f9fa;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.languages-text {
+    text-align: center;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    color: rgba(0,0,0,.54);
+}
+
+.country{
+    width: 100vw;
+    padding: 15px ;
+    margin: 0;
+    border-bottom: 1px solid #dadce0;
+}
+
+.country p {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.footer-items{
+    display: flex;
+    justify-content: space-evenly;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #70757a;
+}
+.footer-items-left {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+}
+
+.footer-items-left p {
+    padding: 15px;
+    margin: 0;
+}
+
+.footer-items-right {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.footer-items-right p {
+    padding: 15px;
+    margin: 0;
+}
