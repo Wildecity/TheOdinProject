@@ -6,11 +6,11 @@ Porque lo hace mas legible y facil de mantener
 
 # Name 5 clean code principles previously mentioned
 
-Indentacion
-Nombres apropiados
-Poner ;
-Largo de linea
-Escribir comentarios apropiados
+-Indentacion
+-Nombres apropiados
+-Poner ;
+-Largo de linea
+-Escribir comentarios apropiados
 
 # What is the difference between good comments and bad comments?
 
