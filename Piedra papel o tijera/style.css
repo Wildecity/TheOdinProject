@@ -1,0 +1,8 @@
+#playerScore,
+#computerScore {
+  transition: transform 70ms;
+}
+
+.roundWinner {
+  transform: scale(1.1);
+}
