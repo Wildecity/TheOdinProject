@@ -37,6 +37,11 @@ parentNode.removeChild(child)
 
 Elimina el nodo child de parentNode
 
+||
+
+document.body.addEventListener("click", (e) => {
+    e.target.remove()})
+
 # How can you alter an element in the DOM?
 
 Se genera una referancia al elemento asignandolo a una variable.
@@ -128,8 +133,20 @@ querySelectorAll devuelve un objeto similar a un array llamado "nodelist"
 
 # What does a “nodelist” contain?
 
-Contiene todos los nodos que encuentra el selector
+nodelist es un objeto que contiene una coleccion de nodos
 
 # Explain the difference between “capture” and “bubbling”.
 
+Cuando ocurre un evento, este no se detiene en el elemento que lo dispara, sino que por defecto asciende hasta llegar hasta el ancestro mas lejano (document). A esto se lo conoce como bubbling. 
 
+Contrario a esto si se especifica que se quiere acceder a la fase de captura, la propagacion se realiza de la manera contraria, desde el ultimo ancestro al elemento que desencadena el evento.
+
+Para evitar la propagacion se usa el metodo stopPropagation sobre el objecto evento (e) que esta implicito en los event listener.
+
+Fases de eventos
+
+1- capture
+2- target
+3- bubbling
+
+ 
