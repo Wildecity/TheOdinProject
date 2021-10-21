@@ -1,80 +1,159 @@
-let oldNum = "";
+//variables
+
+const display = document.querySelector("#display");
+const numButtons = document.querySelectorAll(".btnNum");
+const operationButtons = document.querySelectorAll(".btnOperation");
+const btnDel = document.querySelector("#btnDel");
+const btnClear = document.querySelector("#btnClear");
+const btnSolve = document.querySelector("#btnSolve");
+
+let temp = "";
+let operator = "";
+let previousNum = "";
 let currentNum = "";
-let operation = "";
 let result = "";
-let display = document.querySelector("#display");
-let numButtons = document.querySelectorAll(".btnNum");
-let operationButtons = document.querySelectorAll(".btnOperation");
-let btnDel = document.querySelector("#btnDel");
-let btnClear = document.querySelector("#btnClear");
-let btnSolve = document.querySelector("#btnSolve");
+
+//operations
+
+function add(num1, num2) {
+  return parseFloat(num1) + parseFloat(num2);
+}
+
+function subtract(num1, num2) {
+  return parseFloat(num1) - parseFloat(num2);
+}
+
+function multiply(num1, num2) {
+  return parseFloat(num1) * parseFloat(num2);
+}
+
+function divide(num1, num2) {
+  return parseFloat(num1) / parseFloat(num2);
+}
+
+// round function
+
+function round(num) {
+  return +(Math.round(num + "e+12") + "e-12");
+}
+
+// operate
+
+function operate() {
+  switch (operator) {
+    case "+":
+      previousNum = round(add(previousNum, currentNum));
+      break;
+    case "-":
+      previousNum = round(subtract(previousNum, currentNum));
+      break;
+    case "*":
+      previousNum = round(multiply(previousNum, currentNum));
+      break;
+    case "/":
+      previousNum = round(divide(previousNum, currentNum));
+  }
+  display.value = previousNum;
+}
+
+// EVENTS
+
+//Number buttons
+
+// numButtons.forEach((button) => {
+//   button.addEventListener("click", () => {
+//     if (currentNum.length >= 16) return;
+//     else if (button.textContent == "." && display.value.indexOf(".") != -1) {
+//       return;
+//     }
+//     currentNum += button.textContent;
+//     display.value = currentNum;
+//   });
+// });
 
 numButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    currentNum += button.innerText;
-    display.value = currentNum;
-  });
+  button.addEventListener("click", () => pressNumBtn(button.textContent));
 });
+
+function pressNumBtn(button) {
+  if (currentNum.length >= 16) return;
+  else if (button == "." && display.value.indexOf(".") != -1) {
+    return;
+  }
+  currentNum += button;
+  display.value = currentNum;
+}
 
 operationButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    if (oldNum == "") {
-      oldNum = currentNum;
-      currentNum = "";
-      operation = button.innerHTML;
-    } else {
-      solve();
-    }
-  });
+  button.addEventListener("click", () => pressOperationBtn(button.textContent));
+});
+//
+
+function pressOperationBtn(button) {
+  if (previousNum != "" && currentNum != "") {
+    operate();
+    previousNum = display.value;
+  } else if (currentNum === "") {
+    operator = button;
+  } else {
+    previousNum = currentNum;
+  }
+  operator = button;
+  currentNum = "";
+}
+
+// operationButtons.forEach((button) => {
+//   button.addEventListener("click", () => {
+//     //para calcular solo 2 valores por vez si se concatenan operaciones
+//     if (previousNum != "" && currentNum != "") {
+//       operate();
+//       previousNum = display.value;
+//     } else if (currentNum === "") {
+//       operator = button.textContent;
+//     } else {
+//       previousNum = currentNum;
+//     }
+//     operator = button.textContent;
+//     currentNum = "";
+//   });
+// });
+
+//Solve button
+
+btnSolve.addEventListener("click", () => {
+  if (previousNum === "" || currentNum === "") return;
+  operate();
+  currentNum = "";
 });
 
+//Delete button
+
 btnDel.addEventListener("click", function () {
+  if (currentNum == "") return;
   currentNum = currentNum.slice(0, -1);
   display.value = currentNum;
 });
 
+//Clear button
+
 btnClear.addEventListener("click", function () {
   currentNum = "";
-  oldNum = "";
-  operation = "";
+  previousNum = "";
+  operator = "";
   display.value = "";
 });
 
-let solve = function () {
-  switch (operation) {
-    case "+":
-      result = parseFloat(oldNum) + parseFloat(currentNum);
-      display.value = result.toString();
-      oldNum = result;
-      break;
+let key = "";
 
-    case "-":
-      currentNum = parseFloat(oldNum) - parseFloat(currentNum);
-      display.value = currentNum.toString();
-      oldNum = currentNum;
-      break;
-
-    case "*":
-      currentNum = parseFloat(oldNum) * parseFloat(currentNum);
-      display.value = currentNum.toString();
-      oldNum = currentNum;
-      break;
-
-    case "/":
-      currentNum = parseFloat(oldNum) / parseFloat(currentNum);
-      display.value = currentNum.toString();
-      oldNum = currentNum;
-      break;
+document.addEventListener("keydown", (e) => {
+  key = e;
+  if (e.key == "Backspace") {
+    btnDel.click();
+  } else if (e.key == "Delete") {
+    btnClear.click();
+  } else if (isFinite(e.key) || e.key == ".") {
+    pressNumBtn(e.key);
+  } else if (e.key.search(/.*.\/.+.\-/)) {
+    pressOperationBtn(e.key);
   }
-};
-
-btnSolve.addEventListener("click", solve);
-
-// Cada vez que el usuario presiona un BOTON DE NUMERO se agrega al DISPLAY
-
-// Cuando el usuario presiona un BOTON DE OPERACION se almacena ese numero en una VARIABLE y el tipo de operacion en otra VARIABLE
-// Se limpia el DISPLAY
-// El usuario ingresa OTRO NUMERO
-// cuando presiona el boton IGUAL se almacena el segundo numero y se toma el primer valor y lo opera con el segundo valor.
-// El tipo de operacion sera definida por el valor almacenado
-// Se muestra el resultado en el display
+});
