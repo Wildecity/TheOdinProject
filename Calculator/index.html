@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container col-10 col-sm-6 col-md-5 col-lg-4 border p-3 mt-2">
+        <div class="row pb-2">
+            <div class="col p-0">
+                <div class="input-group flex-nowrap">
+                    <input id="display" type="text" class="form-control text-end fs-1 bg-white text-black"
+                        placeholder="" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 d-grid p-1">
+                <button id="btnClear" class="btn btn-lg btn-primary fs-1" type="button">Clear</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button id="btnDel" class="btn btn-lg btn-warning fs-1" type="button">←</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnOperation btn btn-lg btn-danger fs-1" type="button">/</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-grid p-1">
+                <button class="btnNum btn-lg btn btn-primary fs-1" type="button">7</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn-lg btn btn-primary fs-1" type="button">8</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn-lg btn btn-primary fs-1" type="button">9</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnOperation btn btn-lg btn-danger fs-1" type="button">*</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn-lg btn btn-primary fs-1" type="button">4</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">5</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">6</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnOperation btn btn-lg btn-danger fs-1" type="button">-</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">1</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">2</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">3</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnOperation btn btn-lg btn-danger fs-1" type="button">+</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">0</button>
+            </div>
+            <div class="col-3 d-grid p-1">
+                <button class="btnNum btn btn-lg btn-primary fs-1" type="button">.</button>
+            </div>
+            <div class="col-6 d-grid p-1">
+                <button id="btnSolve" class="btn btn-lg btn-success fs-1" type="button">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
