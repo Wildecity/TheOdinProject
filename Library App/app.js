@@ -35,7 +35,7 @@ Book.prototype.toggleRead = function (e) {
 Book.prototype.removeBook = function (e) {
   let index = myLibrary.indexOf(this);
   myLibrary.splice(index, 1);
-  container.removeChild(e.target.parentElement);
+  container.removeChild(e.path[2]);
   localStorage.setItem("library", JSON.stringify(myLibrary));
 };
 
