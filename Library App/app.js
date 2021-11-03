@@ -110,7 +110,15 @@ addBookBtn.addEventListener("click", () => {
   } else {
     return;
   }
+  clearInputs();
 });
+
+function clearInputs() {
+  titleInput.value = "";
+  authorInput.value = "";
+  pagesInput.value = "";
+  readInput.checked = false;
+}
 
 function displayBooks() {
   if (localStorage.getItem("library")) {
