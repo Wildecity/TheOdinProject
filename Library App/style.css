@@ -19,3 +19,7 @@ h3 {
 .book:hover {
   transform: scale(1.03);
 }
+
+.btn-group button {
+  width: 80px;
+}

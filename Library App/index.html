@@ -12,15 +12,20 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container d-flex flex-row justify-content-between my-2">
+    <div class="container d-flex flex-row justify-content-between my-2 p-0">
         <h1 class="align-self-center">My Library</h1>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newBookModal">
-            New Book </button>
+        <div class="btn-group gap-1">
+            <button type="button" class="btn btn-dark">
+                Example Books </button>
+            <button type="button" class="btn btn-warning">
+                Clear library </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newBookModal">
+                New Book </button>
+        </div>
     </div>
 
     <div id="library" class="library container d-flex flex-wrap justify-content-evenly border border-2 rounded-3"></div>
@@ -76,6 +81,7 @@
     </div>
 
     <script src="app.js"></script>
+    <script src="addTestBooks.js"></script>
 
 </body>
 
