@@ -2,7 +2,11 @@ https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/le
 
 # Describe common bugs you might run into using constructors.
 
+El error mas comun es que si olvidamos poner la keyword new en el constructor, este no va a retornar ningun error, en su lugar retorna "undefined", haciendo dificil encontrar el error.
+
 # Write a factory method that returns an object.
+
+
 
 # Explain how scope works in JavaScript (bonus points if you can point out what ES6 changed!).
 
