@@ -6,12 +6,13 @@
 !===> Function that allow players to add marks on the board
 !===>  Tie it to the DOM
 !===>  Check if the spot is already taken
-Function that check who wins, or if it's a tie
+!===>Function that check who wins, or if it's a tie
 Clean up the board
 */
 
 const boardGrid = document.querySelector(".board");
 const display = document.querySelector(".display");
+const resetBtn = document.querySelector("#resetBtn");
 const winningCombos = [
   [0, 1, 2],
   [3, 4, 5],
@@ -44,7 +45,18 @@ const gameControl = {
       newCell.textContent = gameboard.board[i];
       boardGrid.appendChild(newCell);
     }
+    boardGrid.childNodes.forEach((cell) => {
+      cell.addEventListener("click", (e) => {
+        if (gameControl.isValidMove(e.target)) {
+          gameControl.addPlayerMark(e.target);
+          checkWinner();
+          gameControl.changeTurn();
+          console.log(gameboard.board);
+        }
+      });
+    });
   },
+
   isValidMove: (target) => {
     if (target.textContent === "" && gameInfo.isGameON === true) {
       return true;
@@ -64,10 +76,10 @@ const gameControl = {
     if (gameInfo.isGameON) {
       if (gameInfo.currentPlayer === gameInfo.playersList[0]) {
         gameInfo.currentPlayer = gameInfo.playersList[1];
-        display.textContent = "Player two's turn";
+        display.textContent = "Player Two's turn";
       } else {
         gameInfo.currentPlayer = gameInfo.playersList[0];
-        display.textContent = "Player one's turn";
+        display.textContent = "Player One's turn";
       }
     }
   },
@@ -85,17 +97,6 @@ gameInfo.currentPlayer = gameInfo.playersList[0];
 
 gameControl.renderBoard();
 
-boardGrid.childNodes.forEach((cell) => {
-  cell.addEventListener("click", (e) => {
-    if (gameControl.isValidMove(e.target)) {
-      gameControl.addPlayerMark(e.target);
-      checkWinner();
-      gameControl.changeTurn();
-      console.log(gameboard.board);
-    }
-  });
-});
-
 function checkWinner() {
   winningCombos.forEach((combo) => {
     if (gameInfo.isGameON) {
@@ -111,4 +112,19 @@ function checkWinner() {
       }
     }
   });
+  //IF THERE'S NO WINNER, CHECK IF IT'S A TIE
+  if (gameInfo.isGameON) {
+    if (gameboard.board.every((cell) => cell !== "")) {
+      display.textContent = `It's a TIE`;
+      gameInfo.isGameON = false;
+    }
+  }
 }
+
+resetBtn.addEventListener("click", () => {
+  gameboard.board = ["", "", "", "", "", "", "", "", ""];
+  gameInfo.isGameON = true;
+  gameControl.renderBoard();
+  gameInfo.currentPlayer = gameInfo.playersList[0];
+  display.textContent = `Player One's turn`;
+});
