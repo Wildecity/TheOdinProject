@@ -1,6 +1,6 @@
-.board {
-  width: 450px;
-  height: 450px;
+#board {
+  width: 400px;
+  height: 400px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -15,6 +15,11 @@
   font-size: 5rem;
 }
 
-.display {
-  width: 450px;
+#display {
+  width: 400px;
+}
+
+.disabled {
+  background-color: rgb(235, 235, 235);
+  transition: background-color 150ms;
 }

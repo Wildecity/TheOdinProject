@@ -1,17 +1,17 @@
 /* 
-!===> Create gameboard [ARRAY] //! MODULE
+!===> Create game [ARRAY] //! MODULE
 !===> Create players {OBJECTS} //? FACTORY
 !===> Control de Flow of the game {OBJECT}
-!===> Function that renders the gameboard array
+!===> Function that renders the game array
 !===> Function that allow players to add marks on the board
-!===>  Tie it to the DOM
-!===>  Check if the spot is already taken
-!===>Function that check who wins, or if it's a tie
-Clean up the board
+!===>   Tie it to the DOM
+!===>   Check if the spot is already taken
+!===> Function that check who wins, or if it's a tie
+!===> Clean up the board
 */
 
-const boardGrid = document.querySelector(".board");
-const display = document.querySelector(".display");
+const boardGrid = document.querySelector("#board");
+const display = document.querySelector("#display");
 const resetBtn = document.querySelector("#resetBtn");
 const winningCombos = [
   [0, 1, 2],
@@ -24,16 +24,13 @@ const winningCombos = [
   [2, 4, 6],
 ];
 
-const gameboard = (() => {
-  const board = ["", "", "", "", "", "", "", "", ""];
-  return { board };
+const game = (() => {
+  let board = ["", "", "", "", "", "", "", "", ""];
+  let playersList = [];
+  let isON = true;
+  let currentPlayer = "";
+  return { board, playersList, isON, currentPlayer };
 })();
-
-const gameInfo = {
-  playersList: [],
-  isGameON: true,
-  currentPlayer: "",
-};
 
 const gameControl = {
   renderBoard: () => {
@@ -42,89 +39,92 @@ const gameControl = {
       let newCell = document.createElement("div");
       newCell.classList.add("cell");
       newCell.dataset.cell = i;
-      newCell.textContent = gameboard.board[i];
+      newCell.textContent = game.board[i];
       boardGrid.appendChild(newCell);
     }
     boardGrid.childNodes.forEach((cell) => {
       cell.addEventListener("click", (e) => {
         if (gameControl.isValidMove(e.target)) {
           gameControl.addPlayerMark(e.target);
-          checkWinner();
+          gameControl.checkWinner();
           gameControl.changeTurn();
-          console.log(gameboard.board);
         }
       });
     });
   },
 
   isValidMove: (target) => {
-    if (target.textContent === "" && gameInfo.isGameON === true) {
+    if (target.textContent === "" && game.isON === true) {
       return true;
     }
     return false;
   },
   addPlayerMark: (target) => {
-    if (gameInfo.currentPlayer === gameInfo.playersList[0]) {
+    if (game.currentPlayer === game.playersList[0]) {
       target.textContent = "X";
-      gameboard.board[target.dataset.cell] = "X";
+      game.board[target.dataset.cell] = "X";
     } else {
       target.textContent = "O";
-      gameboard.board[target.dataset.cell] = "O";
+      game.board[target.dataset.cell] = "O";
     }
   },
   changeTurn: () => {
-    if (gameInfo.isGameON) {
-      if (gameInfo.currentPlayer === gameInfo.playersList[0]) {
-        gameInfo.currentPlayer = gameInfo.playersList[1];
+    if (game.isON) {
+      if (game.currentPlayer === game.playersList[0]) {
+        game.currentPlayer = game.playersList[1];
         display.textContent = "Player Two's turn";
       } else {
-        gameInfo.currentPlayer = gameInfo.playersList[0];
+        game.currentPlayer = game.playersList[0];
         display.textContent = "Player One's turn";
+      }
+    }
+  },
+  reset: () => {
+    game.board = ["", "", "", "", "", "", "", "", ""];
+    game.isON = true;
+    gameControl.renderBoard();
+    game.currentPlayer = game.playersList[0];
+    display.textContent = `Player One's turn`;
+  },
+
+  checkWinner: () => {
+    winningCombos.forEach((combo) => {
+      if (game.isON) {
+        let board = game.board;
+        let x = combo[0];
+        let y = combo[1];
+        let z = combo[2];
+        if (board[x] && board[y] && board[z]) {
+          if (board[x] === board[y] && board[y] === board[z]) {
+            display.textContent = `${game.currentPlayer} WON!`;
+            game.isON = false;
+            for (let cell of boardGrid.children) {
+              cell.classList.add("disabled");
+            }
+          }
+        }
+      }
+    });
+    //IF THERE'S NO WINNER, CHECK IF IT'S A TIE
+    if (game.isON) {
+      if (game.board.every((cell) => cell !== "")) {
+        display.textContent = `It's a TIE`;
+        game.isON = false;
       }
     }
   },
 };
 
 const playerFactory = (name, symbol) => {
-  gameInfo.playersList.push(name);
+  game.playersList.push(name);
   return { name, symbol };
 };
 
 const playerOne = playerFactory("Player One", "X");
 const playerTwo = playerFactory("Player Two", "O");
 
-gameInfo.currentPlayer = gameInfo.playersList[0];
+game.currentPlayer = game.playersList[0];
 
 gameControl.renderBoard();
 
-function checkWinner() {
-  winningCombos.forEach((combo) => {
-    if (gameInfo.isGameON) {
-      let board = gameboard.board;
-      let x = combo[0];
-      let y = combo[1];
-      let z = combo[2];
-      if (board[x] && board[y] && board[z]) {
-        if (board[x] === board[y] && board[y] === board[z]) {
-          display.textContent = `${gameInfo.currentPlayer} WON!`;
-          gameInfo.isGameON = false;
-        }
-      }
-    }
-  });
-  //IF THERE'S NO WINNER, CHECK IF IT'S A TIE
-  if (gameInfo.isGameON) {
-    if (gameboard.board.every((cell) => cell !== "")) {
-      display.textContent = `It's a TIE`;
-      gameInfo.isGameON = false;
-    }
-  }
-}
-
-resetBtn.addEventListener("click", () => {
-  gameboard.board = ["", "", "", "", "", "", "", "", ""];
-  gameInfo.isGameON = true;
-  gameControl.renderBoard();
-  gameInfo.currentPlayer = gameInfo.playersList[0];
-  display.textContent = `Player One's turn`;
-});
+resetBtn.addEventListener("click", gameControl.reset);
