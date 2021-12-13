@@ -110,6 +110,9 @@ const gameControl = {
       if (game.board.every((cell) => cell !== "")) {
         display.textContent = `It's a TIE`;
         game.isON = false;
+        for (let cell of boardGrid.children) {
+          cell.classList.add("disabled");
+        }
       }
     }
   },
